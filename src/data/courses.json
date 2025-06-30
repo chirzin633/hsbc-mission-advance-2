@@ -1,0 +1,110 @@
+[
+  {
+    "id": 1,
+    "title": "Big 4 Auditor Financial Analyst",
+    "imageUrl": "/img/card/card1.jpeg",
+    "avatarUrl": "/img/card/ava1.svg",
+    "instructor": "Jenna Ortega",
+    "position": "Senior Accountant",
+    "company": "Gojek",
+    "rating": 3.5,
+    "reviewCount": 86,
+    "price": "Rp 300K"
+  },
+  {
+    "id": 2,
+    "title": "Big 4 Auditor Financial Analyst",
+    "imageUrl": "/img/card/card2.jpeg",
+    "avatarUrl": "/img/card/ava2.svg",
+    "instructor": "Jenna Ortega",
+    "position": "Senior Accountant",
+    "company": "Gojek",
+    "rating": 2.5,
+    "reviewCount": 86,
+    "price": "Rp 300K"
+  },
+  {
+    "id": 3,
+    "title": "Big 4 Auditor Financial Analyst",
+    "imageUrl": "/img/card/card3.jpeg",
+    "avatarUrl": "/img/card/ava3.svg",
+    "instructor": "Jenna Ortega",
+    "position": "Senior Accountant",
+    "company": "Gojek",
+    "rating": 2.5,
+    "reviewCount": 86,
+    "price": "Rp 300K"
+  },
+  {
+    "id": 4,
+    "title": "Big 4 Auditor Financial Analyst",
+    "imageUrl": "/img/card/card4.jpeg",
+    "avatarUrl": "/img/card/ava4.svg",
+    "instructor": "Jenna Ortega",
+    "position": "Senior Accountant",
+    "company": "Gojek",
+    "rating": 2.5,
+    "reviewCount": 86,
+    "price": "Rp 300K"
+  },
+  {
+    "id": 5,
+    "title": "Big 4 Auditor Financial Analyst",
+    "imageUrl": "/img/card/card5.jpeg",
+    "avatarUrl": "/img/card/ava5.svg",
+    "instructor": "Jenna Ortega",
+    "position": "Senior Accountant",
+    "company": "Gojek",
+    "rating": 2.5,
+    "reviewCount": 86,
+    "price": "Rp 300K"
+  },
+  {
+    "id": 6,
+    "title": "Big 4 Auditor Financial Analyst",
+    "imageUrl": "/img/card/card6.jpeg",
+    "avatarUrl": "/img/card/ava6.svg",
+    "instructor": "Jenna Ortega",
+    "position": "Senior Accountant",
+    "company": "Gojek",
+    "rating": 2.5,
+    "reviewCount": 86,
+    "price": "Rp 300K"
+  },
+  {
+    "id": 7,
+    "title": "Big 4 Auditor Financial Analyst",
+    "imageUrl": "/img/card/card7.jpeg",
+    "avatarUrl": "/img/card/ava7.svg",
+    "instructor": "Jenna Ortega",
+    "position": "Senior Accountant",
+    "company": "Gojek",
+    "rating": 2.5,
+    "reviewCount": 86,
+    "price": "Rp 300K"
+  },
+  {
+    "id": 8,
+    "title": "Big 4 Auditor Financial Analyst",
+    "imageUrl": "/img/card/card8.jpeg",
+    "avatarUrl": "/img/card/ava8.svg",
+    "instructor": "Jenna Ortega",
+    "position": "Senior Accountant",
+    "company": "Gojek",
+    "rating": 2.5,
+    "reviewCount": 86,
+    "price": "Rp 300K"
+  },
+  {
+    "id": 9,
+    "title": "Big 4 Auditor Financial Analyst",
+    "imageUrl": "/img/card/card9.jpeg",
+    "avatarUrl": "/img/card/ava9.svg",
+    "instructor": "Jenna Ortega",
+    "position": "Senior Accountant",
+    "company": "Gojek",
+    "rating": 2.5,
+    "reviewCount": 86,
+    "price": "Rp 300K"
+  }
+]
