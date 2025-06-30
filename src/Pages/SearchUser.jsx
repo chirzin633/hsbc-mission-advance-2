@@ -1,13 +1,10 @@
-import { useState } from "react";
 import HeaderDashboard from "../components/Elements/HeaderDashboard";
 import Sidebar from "../components/Elements/Sidebar";
-import axios from "axios";
 import { capitalizeEachWord } from "../utils/string";
+import useSearchUserStore from "../store/useSearchUserStore";
 
 export default function SearchUser() {
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState(null);
+  const { email, loading, result, setEmail, handleSearch } = useSearchUserStore();
 
   function handleInputChange(e) {
     setEmail(e.target.value);
@@ -17,24 +14,6 @@ export default function SearchUser() {
     if (e.key === "Enter") {
       e.preventDefault();
       handleSearch();
-    }
-  }
-
-  async function handleSearch() {
-    if (!email) return;
-    setLoading(true);
-    setResult(null);
-
-    try {
-      const response = await axios.get("https://685a53d39f6ef9611155e75f.mockapi.io/users", {
-        params: { email: email },
-      });
-      const data = response.data;
-      setResult(data.length > 0 ? data[0] : null);
-    } catch (err) {
-      console.error("Gagal fetching data...", err);
-    } finally {
-      setLoading(false);
     }
   }
 
