@@ -1,9 +1,17 @@
-export default function AdminForm(props) {
-  const { form, handleChange, handleSubmit, editIndex } = props;
+import useItemStore from "../../store/useItemStore";
+
+export default function AdminForm() {
+  const { form, handleChange, submitItem, editIndex } = useItemStore();
+
+  function handleSubmitForm(e) {
+    e.preventDefault();
+    submitItem();
+  }
+
   return (
     <div className="bg-white shadow-lg p-4">
       <h1 className="text-xl font-bold mb-5">{editIndex === null ? "Create New Item" : "Edit Item"}</h1>
-      <form className="flex flex-col gap-3">
+      <form className="flex flex-col gap-3" onSubmit={handleSubmitForm}>
         <label htmlFor="name" className="font-semibold">
           Name
         </label>
@@ -23,7 +31,7 @@ export default function AdminForm(props) {
         <input type="number" id="rating" value={form.rating} onChange={handleChange} className="border border-black rounded-sm p-1" />
         <label htmlFor="price">Price</label>
         <input type="number" id="price" value={form.price} onChange={handleChange} className="border border-black rounded-sm p-1" />
-        <button type="button" onClick={handleSubmit} className="bg-sky-700 w-20 px-2 py-1 rounded text-white font-semibold">
+        <button type="submit" className="bg-sky-700 w-20 px-2 py-1 rounded text-white font-semibold">
           {editIndex === null ? "Create" : "Update"}
         </button>
       </form>

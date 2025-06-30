@@ -2,6 +2,7 @@ import { useState } from "react";
 import HeaderDashboard from "../components/Elements/HeaderDashboard";
 import Sidebar from "../components/Elements/Sidebar";
 import axios from "axios";
+import { capitalizeEachWord } from "../utils/string";
 
 export default function SearchUser() {
   const [email, setEmail] = useState("");
@@ -17,14 +18,6 @@ export default function SearchUser() {
       e.preventDefault();
       handleSearch();
     }
-  }
-
-  function capitalizeEachWord(str) {
-    return str
-      .toLowerCase()
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
   }
 
   async function handleSearch() {
