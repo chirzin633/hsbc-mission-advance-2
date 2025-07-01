@@ -1,7 +1,6 @@
 import { create } from 'zustand';
-import axios from 'axios';
+import { fetchItems, createItem, updateItem, deleteItem } from '../services/api/itemService';
 
-const API_URL = "https://685a53d39f6ef9611155e75f.mockapi.io/items";
 const defaultForm = {
     title: "",
     description: "",
@@ -15,25 +14,24 @@ const defaultForm = {
 const useItemStore = create((set, get) => ({
     items: [],
     form: { ...defaultForm },
-    editIndex: null,
+    editItemId: null,
 
     fetchItems: async () => {
         try {
-            const res = await axios.get(API_URL);
-            set({ items: res.data });
+            const res = await fetchItems();
+            set({ items: res });
         } catch (err) {
             console.error("Gagal fetch data:", err);
         }
     },
 
     setForm: (payload) => set((state) => ({ form: { ...state.form, ...payload } })),
-
-    setEditIndex: (index) => {
-        const item = get().items[index];
-        set({ editIndex: index, form: item });
+    setEditItem: (id) => {
+        const item = get().items.find((item) => item.id === id);
+        set({ editItemId: id, form: item });
     },
 
-    resetForm: () => set({ form: { ...defaultForm }, editIndex: null }),
+    resetForm: () => set({ form: { ...defaultForm }, editItemId: null }),
 
 
     handleChange: (e) => {
@@ -42,7 +40,7 @@ const useItemStore = create((set, get) => ({
     },
 
     submitItem: async () => {
-        const { form, items, editIndex, resetForm } = get();
+        const { form, items, editItemId, resetForm } = get();
 
         if (!form.title || !form.instructor || !form.rating) {
             alert("Field wajib tidak boleh kosong");
@@ -50,14 +48,12 @@ const useItemStore = create((set, get) => ({
         }
 
         try {
-            if (editIndex === null) {
-                const res = await axios.post(API_URL, form);
-                set({ items: [...items, res.data] });
+            if (!editItemId) {
+                const res = await createItem(form);
+                set({ items: [...items, res] });
             } else {
-                const res = await axios.put(`${API_URL}/${items[editIndex].id}`, form);
-                const updated = [...items];
-                updated[editIndex] = res.data;
-                set({ items: updated });
+                const res = await updateItem(editItemId, form);
+                set({ items: items.map((item) => item.id === editItemId ? res : item) });
             }
             resetForm();
         } catch (err) {
@@ -65,16 +61,14 @@ const useItemStore = create((set, get) => ({
         }
     },
 
-    deleteItem: async (index) => {
-        const { items, editIndex, resetForm } = get();
-        const id = items[index].id;
+    deleteItem: async (id) => {
+        const { items, editItemId, resetForm } = get();
         if (!confirm("Yakin ingin menghapus item ini?")) return;
-
         try {
-            await axios.delete(`${API_URL}/${id}`);
-            set({ items: items.filter((_, i) => i !== index) });
+            await deleteItem(id)
+            set({ items: items.filter((item) => item.id !== id) });
 
-            if (editIndex === index) resetForm();
+            if (editItemId === id) resetForm();
         } catch (err) {
             console.error("Gagal hapus", err);
         }
