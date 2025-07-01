@@ -3,37 +3,20 @@ import PasswordInput from "../Elements/PasswordInput";
 import Divider from "../Elements/Divider";
 import GoogleLoginButton from "../Elements/GoogleLoginButton";
 import { useNavigate } from "react-router";
-import { useState } from "react";
-import axios from "axios";
+import useAuthStore from "../../store/useAuthStore";
 
 export default function LoginForm() {
+  const { errorMessage, login } = useAuthStore();
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState("");
 
-  async function handleLogin(e) {
+  function handleSubmit(e) {
     e.preventDefault();
     const email = e.target.email.value.trim();
     const password = e.target.password.value.trim();
 
-    if (!email || !password) {
-      setErrorMessage("Email dan Password harus diisi!");
-      return;
-    }
-
-    try {
-      const res = await axios.get("https://685a53d39f6ef9611155e75f.mockapi.io/users");
-      const users = res.data;
-      const foundUser = users.find((user) => user.email === email && user.password === password);
-
-      if (foundUser) {
-        localStorage.setItem("email", foundUser.email);
-        navigate("/dashboard", { state: { email: foundUser.email } });
-      } else {
-        setErrorMessage("Email atau Password Salah!");
-      }
-    } catch (err) {
-      setErrorMessage("Gagal terhubung ke server.", err);
-    }
+    login(email, password, (email) => {
+      navigate("/dashboard", { state: { email } });
+    });
   }
 
   function handleNavigate() {
@@ -41,7 +24,7 @@ export default function LoginForm() {
   }
 
   return (
-    <form onSubmit={handleLogin} className="flex flex-col gap-3">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-3">
       {/* Tampilkan error jika ada */}
       {errorMessage && <p className="bg-red-100 text-red-700 px-4 py-2 rounded-md">{errorMessage}</p>}
 
