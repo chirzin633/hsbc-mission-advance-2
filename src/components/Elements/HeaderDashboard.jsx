@@ -1,37 +1,18 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
-import axios from "axios";
+import useAuthStore from "../../store/useAuthStore";
 
-export default function HeaderDashboard(props) {
-  const { email } = props;
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const email = localStorage.getItem("email");
-    if (!email) return;
-
-    async function fetchUser() {
-      try {
-        const res = await axios.get("https://685a53d39f6ef9611155e75f.mockapi.io/users/");
-        const users = res.data;
-        const found = users.find((u) => u.email === email);
-        setUser(found);
-      } catch (err) {
-        console.error("Gagal ambil data user", err);
-      }
-    }
-    if (email) fetchUser();
-  }, [email]);
-
-  const navigate = useNavigate();
+export default function HeaderDashboard() {
+  const { user, logout } = useAuthStore();
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   function handleToggleMenu() {
     setMenuOpen(!menuOpen);
   }
 
   function handleLogout() {
-    localStorage.removeItem("email");
+    logout();
     navigate("/login");
   }
 

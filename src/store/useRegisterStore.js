@@ -1,4 +1,3 @@
-// /stores/registerStore.js
 import { create } from "zustand";
 import axios from "axios";
 
@@ -45,6 +44,7 @@ const useRegisterStore = create((set, get) => ({
             setTimeout(() => {
                 navigate("/login");
             }, 2000);
+
         } catch (err) {
             if (err.response) {
                 set({ error: err.response.data.message || "Registrasi gagal!" });

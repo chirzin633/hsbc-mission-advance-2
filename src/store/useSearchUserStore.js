@@ -7,14 +7,17 @@ const useSearchUserStore = create((set, get) => ({
     email: "",
     loading: false,
     result: null,
+    error: "",
 
-    setEmail: (email) => set({ email }),
+    setEmail: (email) => set({ email, error: "" }),
     resetResult: () => set({ result: null }),
 
     handleSearch: async () => {
         const { email } = get();
-        if (!email) return;
-        set({ loading: true, result: null });
+        if (!email.trim()) {
+            return set({ error: "Kolom email tidak boleh kosong!" });
+        }
+        set({ loading: true, result: null, error: "" });
 
         try {
             const res = await axios.get(API_URL, {
@@ -24,7 +27,7 @@ const useSearchUserStore = create((set, get) => ({
             const result = res.data.length > 0 ? res.data[0] : null;
             set({ result });
         } catch (error) {
-            console.error("Gagal fetching data...", error);
+            set({ error: "Data tidak ditemukan..." })
         } finally {
             set({ loading: false });
         }

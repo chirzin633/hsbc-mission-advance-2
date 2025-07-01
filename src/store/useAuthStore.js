@@ -1,8 +1,10 @@
 import { create } from "zustand";
+import { persist } from 'zustand/middleware';
 import axios from "axios";
 
-const useAuthStore = create((set) => ({
+const useAuthStore = create(persist((set) => ({
     errorMessage: "",
+    user: null,
 
     login: async (email, password, onSuccess) => {
         if (!email || !password) {
@@ -16,8 +18,8 @@ const useAuthStore = create((set) => ({
 
             if (user) {
                 localStorage.setItem("email", user.email);
-                set({ errorMessage: "" });
-                onSuccess(user.email); // callback untuk navigate
+                set({ errorMessage: "", user });
+                onSuccess(user.email);
             } else {
                 set({ errorMessage: "Email atau Password Salah!" });
             }
@@ -26,6 +28,14 @@ const useAuthStore = create((set) => ({
             set({ errorMessage: "Gagal terhubung ke server." });
         }
     },
-}));
+
+    logout: () => {
+        localStorage.removeItem("email");
+        set({ user: null });
+    },
+
+    setUser: (user) => set({ user }),
+}), { name: 'auth-storage' }
+));
 
 export default useAuthStore;

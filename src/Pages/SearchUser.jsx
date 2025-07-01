@@ -4,7 +4,7 @@ import { capitalizeEachWord } from "../utils/string";
 import useSearchUserStore from "../store/useSearchUserStore";
 
 export default function SearchUser() {
-  const { email, loading, result, setEmail, handleSearch } = useSearchUserStore();
+  const { email, loading, result, setEmail, handleSearch, error } = useSearchUserStore();
 
   function handleInputChange(e) {
     setEmail(e.target.value);
@@ -34,9 +34,8 @@ export default function SearchUser() {
               Search
             </button>
           </div>
+          {error && <p className="mt-4 text-red-500 font-medium">{error}</p>}
           {loading && <p className="mt-4 text-gray-500 italic">Loading user data..</p>}
-
-          {!loading && result === null && email && <p className="mt-4 text-red-500 font-medium">Data tidak ditemukan...</p>}
           {!loading && result && (
             <div className="mt-6 bg-white p-4 shadow rounded overflow-x-auto">
               <h2 className="text-lg font-bold mb-4">User Found</h2>
