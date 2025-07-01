@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from 'zustand/middleware';
-import axios from "axios";
+import { loginWithEmail } from "../services/api/authService";
 
 const useAuthStore = create(persist((set) => ({
     errorMessage: "",
@@ -12,9 +12,7 @@ const useAuthStore = create(persist((set) => ({
         }
 
         try {
-            const res = await axios.get("https://685a53d39f6ef9611155e75f.mockapi.io/users");
-            const users = res.data;
-            const user = users.find((u) => u.email === email && u.password === password);
+            const user = await loginWithEmail(email, password);
 
             if (user) {
                 localStorage.setItem("email", user.email);

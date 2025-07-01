@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import axios from "axios";
+import { createUser } from "../services/api/userService";
 
 const useRegisterStore = create((set, get) => ({
     formData: {
@@ -31,7 +31,7 @@ const useRegisterStore = create((set, get) => ({
         set({ isLoading: true, error: "", success: "" });
 
         try {
-            const res = await axios.post("https://685a53d39f6ef9611155e75f.mockapi.io/users", {
+            const res = await createUser({
                 name: formData.name,
                 email: formData.email,
                 gender: formData.gender,
@@ -39,7 +39,7 @@ const useRegisterStore = create((set, get) => ({
                 password: formData.password,
             });
 
-            set({ success: `Selamat ${res.data.name}! Registrasi anda berhasil.` });
+            set({ success: `Selamat ${res.name}! Registrasi anda berhasil.` });
 
             setTimeout(() => {
                 navigate("/login");

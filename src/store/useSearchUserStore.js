@@ -1,7 +1,5 @@
 import { create } from "zustand";
-import axios from "axios";
-
-const API_URL = "https://685a53d39f6ef9611155e75f.mockapi.io/users"
+import { findUserByEmail } from "../services/api/userService";
 
 const useSearchUserStore = create((set, get) => ({
     email: "",
@@ -20,14 +18,14 @@ const useSearchUserStore = create((set, get) => ({
         set({ loading: true, result: null, error: "" });
 
         try {
-            const res = await axios.get(API_URL, {
-                params: { email },
-            });
-
-            const result = res.data.length > 0 ? res.data[0] : null;
-            set({ result });
+            const res = await findUserByEmail(email);
+            if (res) {
+                set({ result: res });
+            } else {
+                set({ error: "Data tidak ditemukan..." });
+            }
         } catch (error) {
-            set({ error: "Data tidak ditemukan..." })
+            set({ error: "Terjadi kesalahan jaringan atau server." })
         } finally {
             set({ loading: false });
         }
